@@ -52,8 +52,15 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Modelos\Regras\Regra.cs" />
+    <Compile Include="Modelos\Regras\RegraData.cs" />
+    <Compile Include="Modelos\Regras\RegraDecimal.cs" />
+    <Compile Include="Modelos\Regras\RegraInteiro.cs" />
+    <Compile Include="Modelos\Regras\RegraString.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Singleton\FixaTamanho.cs" />
+    <Compile Include="Singleton\GeradorDeNumeroAleatorio.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -79,5 +86,6 @@
   <ItemGroup>
     <Content Include=".gitignore" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
