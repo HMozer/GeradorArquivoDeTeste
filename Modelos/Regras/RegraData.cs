@@ -33,13 +33,13 @@ namespace GeradorArquivoDeTeste.Modelos.Regras
 
         public override string GeraAleatorio()
         {
-            int ano = GeraAnoAleatorio();
-            int mes = GeraMesAleatorio();
-            int dia = GeraDiaAleatorio(ano, mes);
+            string ano = GeraAnoAleatorio();
+            string mes = GeraMesAleatorio();
+            string dia = GeraDiaAleatorio(int.Parse(ano), int.Parse(mes));
 
-            string dataAleatoria = Mascara.Replace("AAAA", ano.ToString()) +
-                    Mascara.Replace("MM", mes.ToString()) +
-                    Mascara.Replace("DD", dia.ToString());
+            string dataAleatoria = Mascara.Replace("AAAA", ano) +
+                    Mascara.Replace("MM", mes) +
+                    Mascara.Replace("DD", dia);
 
             return dataAleatoria;
         }
@@ -47,9 +47,9 @@ namespace GeradorArquivoDeTeste.Modelos.Regras
         private string GeraDiaAleatorio(int ano, int mes)
         {
             DefineDiaMaximo(ano, mes);
-            int valorDiaAleatorio = GeradorDeNumeroAleatorio.GeraNumeroAleatorio(ValorMinimoDiaEMes, DiaMax);
+            int diaAleatorio = GeradorDeNumeroAleatorio.GeraNumeroAleatorio(ValorMinimoDiaEMes, DiaMax);
 
-            return FixaTamanho.retornaStringTamanhoFixo(valorDiaAleatorio.ToString(), 2);
+            return FixaTamanho.retornaStringTamanhoFixo(diaAleatorio.ToString(), 2);
         }
 
         private void DefineDiaMaximo(int ano, int mes)
@@ -59,12 +59,13 @@ namespace GeradorArquivoDeTeste.Modelos.Regras
 
         private string GeraMesAleatorio()
         {
-            return GeradorDeNumeroAleatorio.GeraNumeroAleatorio(ValorMinimoDiaEMes, MesMax);
+            int mesAleatorio = GeradorDeNumeroAleatorio.GeraNumeroAleatorio(ValorMinimoDiaEMes, MesMax);
+            return FixaTamanho.retornaStringTamanhoFixo(mesAleatorio.ToString(), 2);
         }
 
-        private int GeraAnoAleatorio()
+        private string GeraAnoAleatorio()
         {
-            return GeradorDeNumeroAleatorio.GeraNumeroAleatorio(AnoMin, AnoMax);
+            return GeradorDeNumeroAleatorio.GeraNumeroAleatorio(AnoMin, AnoMax).ToString();
         }
 
         private int RetornaAnoSeDefinido(int anoLimite, int valorDeAnoFixo)
