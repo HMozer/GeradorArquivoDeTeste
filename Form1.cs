@@ -21,7 +21,7 @@ namespace GeradorArquivoDeTeste
 
         private void BotaoGerador_Click(object sender, EventArgs e)
         {
-            Regra teste = new RegraString("foda-se", 5);
+            Regra teste = new RegraInteiro("foda-se", 7);
             lbl_valor_gerado.Text = teste.GerarValorAleatorio();
         }
     }
