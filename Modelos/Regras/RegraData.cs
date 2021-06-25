@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 using GeradorArquivoDeTeste.Singleton;
 
 namespace GeradorArquivoDeTeste.Modelos.Regras
@@ -10,78 +11,116 @@ namespace GeradorArquivoDeTeste.Modelos.Regras
     public class RegraData : Regra
     {
         public string Mascara { get; }
-        public bool AnoCorrente { get; }
 
-        private const int LimiteMaximoAno = 100;
-        private int AnoMin = 1970;
-        private int AnoMax = DateTime.Now.Year + LimiteMaximoAno;
+        private int AnoMin = 1900;
+        private int AnoMax = DateTime.Now.Year + 100;
 
         private const int ValorMinimoDiaEMes = 1;
-        private int MesMax = 12;
-        private int DiaMax = 31;
+        private const int MesMax = 12;
+        private int DiaMax;
 
-        public RegraData(string nome, string mascara, bool anoCorrente = true, int anoMin = 0, int anoMax = 0) : base(nome)
+        public RegraData(string nome, string mascara, bool anoCorrente = true) : base(nome)
         {
-            VerificaLimiteMinimoDoAno(anoMin);
-
             Mascara = mascara;
-            AnoCorrente = anoCorrente;
-
-            AnoMin = RetornaAnoSeDefinido(anoMin, AnoMin);
-            AnoMax = RetornaAnoSeDefinido(anoMax, AnoMax);
+            DefinirLimitesDoAno(anoCorrente);
         }
 
-        public override string GeraAleatorio()
+        public RegraData(string nome, string mascara, int anoMin, int anoMax) : this(nome, mascara, false)
         {
-            string ano = GeraAnoAleatorio();
-            string mes = GeraMesAleatorio();
-            string dia = GeraDiaAleatorio(int.Parse(ano), int.Parse(mes));
+            ValidarParametrosAnos(anoMin, anoMax);
+            DefinirLimitesDoAno(false, anoMin, anoMax);
+        }
 
-            string dataAleatoria = Mascara.Replace("AAAA", ano) +
-                    Mascara.Replace("MM", mes) +
-                    Mascara.Replace("DD", dia);
+        public override string GerarValorAleatorio()
+        {
+            string ano = GerarAnoAleatorio();
+            string mes = GerarMesAleatorio();
+            string dia = GerarDiaAleatorio(int.Parse(ano), int.Parse(mes));
 
+            string dataAleatoria = RetornarValorFormatadoNaMascara(Mascara, ano, mes, dia);
             return dataAleatoria;
         }
 
-        private string GeraDiaAleatorio(int ano, int mes)
+        private void DefinirLimitesDoAno(bool anoCorrente, int anoMin = 0, int anoMax = 0)
         {
-            DefineDiaMaximo(ano, mes);
-            int diaAleatorio = GeradorDeNumeroAleatorio.GeraNumeroAleatorio(ValorMinimoDiaEMes, DiaMax);
+            if (anoCorrente)
+                DefinirLimiteAnoCorrente();
 
-            return FixaTamanho.retornaStringTamanhoFixo(diaAleatorio.ToString(), 2);
+            if (ValidarLimitesDefinidos(anoMin, anoMax))
+            {
+                AnoMin = anoMin;
+                AnoMax = anoMax;
+
+                return;
+            }
         }
 
-        private void DefineDiaMaximo(int ano, int mes)
+        private string RetornarValorFormatadoNaMascara(string mascara, string ano, string mes, string dia)
+        {
+            string novaString = mascara.Replace("AAAA", ano)
+                .Replace("MM", mes)
+                .Replace("DD", dia);
+
+            return novaString;
+        }
+
+        private void DefinirDiaMaximo(int ano, int mes)
         {
             DiaMax = DateTime.DaysInMonth(ano, mes);
         }
 
-        private string GeraMesAleatorio()
+        private void DefinirLimiteAnoCorrente()
         {
-            int mesAleatorio = GeradorDeNumeroAleatorio.GeraNumeroAleatorio(ValorMinimoDiaEMes, MesMax);
-            return FixaTamanho.retornaStringTamanhoFixo(mesAleatorio.ToString(), 2);
+            AnoMax = AnoMin = DateTime.Now.Year;
         }
 
-        private string GeraAnoAleatorio()
+        private string GerarDiaAleatorio(int ano, int mes)
         {
-            return GeradorDeNumeroAleatorio.GeraNumeroAleatorio(AnoMin, AnoMax).ToString();
+            DefinirDiaMaximo(ano, mes);
+            int diaAleatorio = GeradorDeNumeroAleatorio.GerarNumeroAleatorio(ValorMinimoDiaEMes, DiaMax);
+
+            return FixadorDeTamanho.FixarTamanho(diaAleatorio.ToString(), 2);
         }
 
-        private int RetornaAnoSeDefinido(int anoLimite, int valorDeAnoFixo)
+        private string GerarMesAleatorio()
         {
-            if (anoLimite == 0)
-                return valorDeAnoFixo;
-
-            return anoLimite;
+            int mesAleatorio = GeradorDeNumeroAleatorio.GerarNumeroAleatorio(ValorMinimoDiaEMes, MesMax);
+            return FixadorDeTamanho.FixarTamanho(mesAleatorio.ToString(), 2);
         }
 
-        private bool VerificaLimiteMinimoDoAno(int anoMin)
+        private string GerarAnoAleatorio()
         {
-            if (anoMin < 1900)
-                throw new Exception("O valor do ano mínimo não pode ser menor que 1900");
+            return GeradorDeNumeroAleatorio.GerarNumeroAleatorio(AnoMin, AnoMax).ToString();
+        }
 
-            return false;
+        private bool ValidarLimitesDefinidos(int anoMin, int anoMax)
+        {
+            return (anoMin > 0 && anoMax > 0);
+        }
+
+        private bool ValidarLimiteMinimoAno(int anoMin)
+        {
+            if (anoMin < AnoMin)
+                return false;
+
+            return true;
+        }
+
+        private bool ValidarLimiteMaximoAnoMaxQueAnoMin(int anoMin, int anoMax)
+        {
+            if (anoMin > anoMax)
+                return false;
+
+            return true;
+        }
+
+        private void ValidarParametrosAnos(int anoMin, int anoMax)
+        {
+            if (!ValidarLimiteMinimoAno(anoMin))
+                throw new ArgumentException(string.Format("O limite inferior do ano não pode ser menor que {0}", AnoMin));
+
+            if (!ValidarLimiteMaximoAnoMaxQueAnoMin(anoMin, anoMax))
+                throw new ArgumentException("O limite superior do ano não pode ser menor que o limite inferior");
         }
     }
 }

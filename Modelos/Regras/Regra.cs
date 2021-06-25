@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GeradorArquivoDeTeste.Singleton;
 
 namespace GeradorArquivoDeTeste.Modelos.Regras
 {
@@ -15,6 +16,6 @@ namespace GeradorArquivoDeTeste.Modelos.Regras
             Nome = nome;
         }
 
-        public abstract string GeraAleatorio();
+        public abstract string GerarValorAleatorio();
     }
 }

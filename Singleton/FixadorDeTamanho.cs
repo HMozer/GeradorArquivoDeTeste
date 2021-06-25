@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace GeradorArquivoDeTeste.Singleton
 {
-    public static class FixaTamanho
+    public static class FixadorDeTamanho
     {
-        public static string retornaStringTamanhoFixo(string valorASerFixado, int tamanhoString, char preenchimento = '0')
+        public static string FixarTamanho(string valorASerFixado, int tamanhoString, char preenchimento = '0')
         {
             return valorASerFixado.PadLeft(tamanhoString, preenchimento);
         }
