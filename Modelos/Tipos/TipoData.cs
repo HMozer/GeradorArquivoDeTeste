@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 using GeradorArquivoDeTeste.Singleton;
 
-namespace GeradorArquivoDeTeste.Modelos.Regras
+namespace GeradorArquivoDeTeste.Modelos.Tipos
 {
-    public class RegraData : Regra
+    public class TipoData : Tipo
     {
         public string Mascara { get; }
 
@@ -19,13 +19,13 @@ namespace GeradorArquivoDeTeste.Modelos.Regras
         private const int MesMax = 12;
         private int DiaMax;
 
-        public RegraData(string nome, string mascara, bool anoCorrente = true) : base(nome)
+        public TipoData(string nome, string mascara, bool anoCorrente = true) : base(nome)
         {
             Mascara = mascara;
             DefinirLimitesDoAno(anoCorrente);
         }
 
-        public RegraData(string nome, string mascara, int anoMin, int anoMax) : this(nome, mascara, false)
+        public TipoData(string nome, string mascara, int anoMin, int anoMax) : this(nome, mascara, false)
         {
             ValidarParametrosAnos(anoMin, anoMax);
             DefinirLimitesDoAno(false, anoMin, anoMax);
@@ -77,20 +77,20 @@ namespace GeradorArquivoDeTeste.Modelos.Regras
         private string GerarDiaAleatorio(int ano, int mes)
         {
             DefinirDiaMaximo(ano, mes);
-            int diaAleatorio = GeradorDeNumeroAleatorio.GerarNumeroAleatorio(ValorMinimoDiaEMes, DiaMax);
+            int diaAleatorio = GeradorDeNumeroAleatorio.Gerar(ValorMinimoDiaEMes, DiaMax);
 
-            return FixadorDeTamanho.FixarTamanho(diaAleatorio.ToString(), 2);
+            return FixadorDeTamanho.Fixar(diaAleatorio.ToString(), 2);
         }
 
         private string GerarMesAleatorio()
         {
-            int mesAleatorio = GeradorDeNumeroAleatorio.GerarNumeroAleatorio(ValorMinimoDiaEMes, MesMax);
-            return FixadorDeTamanho.FixarTamanho(mesAleatorio.ToString(), 2);
+            int mesAleatorio = GeradorDeNumeroAleatorio.Gerar(ValorMinimoDiaEMes, MesMax);
+            return FixadorDeTamanho.Fixar(mesAleatorio.ToString(), 2);
         }
 
         private string GerarAnoAleatorio()
         {
-            return GeradorDeNumeroAleatorio.GerarNumeroAleatorio(AnoMin, AnoMax).ToString();
+            return GeradorDeNumeroAleatorio.Gerar(AnoMin, AnoMax).ToString();
         }
 
         private bool ValidarLimitesDefinidos(int anoMin, int anoMax)

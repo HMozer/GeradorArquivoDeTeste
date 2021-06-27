@@ -10,7 +10,7 @@ namespace GeradorArquivoDeTeste.Singleton
     {
         private static readonly Random getrandom = new Random();
 
-        public static int GerarNumeroAleatorio(int min, int max)
+        public static int Gerar(int min, int max)
         {
             lock (getrandom) // synchronize
             {

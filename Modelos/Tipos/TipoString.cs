@@ -5,14 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using GeradorArquivoDeTeste.Singleton;
 
-namespace GeradorArquivoDeTeste.Modelos.Regras
+namespace GeradorArquivoDeTeste.Modelos.Tipos
 {
-    class RegraString : Regra
+    class Tipostring : Tipo
     {
         private string Caracteres = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         private int TamanhoString;
         
-        public RegraString(string nome, int tamanho) : base(nome)
+        public Tipostring(string nome, int tamanho) : base(nome)
         {
             VerificarTamanhoDaString(tamanho);
             TamanhoString = tamanho;
@@ -25,7 +25,7 @@ namespace GeradorArquivoDeTeste.Modelos.Regras
 
             for (int i = 0; i < TamanhoString; ++i)
             {
-                int posicao = GeradorDeNumeroAleatorio.GerarNumeroAleatorio(0, tamanhoDaListagemDeCaracteres);
+                int posicao = GeradorDeNumeroAleatorio.Gerar(0, tamanhoDaListagemDeCaracteres);
                 valorAleatorio += RetornarNovoCaractere(posicao);
             }
 

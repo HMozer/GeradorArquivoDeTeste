@@ -52,11 +52,11 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Modelos\Regras\Regra.cs" />
-    <Compile Include="Modelos\Regras\RegraData.cs" />
-    <Compile Include="Modelos\Regras\RegraDecimal.cs" />
-    <Compile Include="Modelos\Regras\RegraInteiro.cs" />
-    <Compile Include="Modelos\Regras\RegraString.cs" />
+    <Compile Include="Modelos\Tipos\Tipo.cs" />
+    <Compile Include="Modelos\Tipos\TipoData.cs" />
+    <Compile Include="Modelos\Tipos\TipoDecimal.cs" />
+    <Compile Include="Modelos\Tipos\TipoInteiro.cs" />
+    <Compile Include="Modelos\Tipos\TipoString.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Singleton\FixadorDeTamanho.cs" />

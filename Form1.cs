@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using GeradorArquivoDeTeste.Modelos.Regras;
+using GeradorArquivoDeTeste.Modelos.Tipos;
 
 namespace GeradorArquivoDeTeste
 {
@@ -21,8 +21,7 @@ namespace GeradorArquivoDeTeste
 
         private void BotaoGerador_Click(object sender, EventArgs e)
         {
-            Regra teste = new RegraInteiro("foda-se", 7);
-            lbl_valor_gerado.Text = teste.GerarValorAleatorio();
+            Console.WriteLine("ok");
         }
     }
 }
