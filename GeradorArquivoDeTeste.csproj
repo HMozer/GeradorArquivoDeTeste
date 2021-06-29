@@ -46,23 +46,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="PainelPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="PainelPrincipal.Designer.cs">
+      <DependentUpon>PainelPrincipal.cs</DependentUpon>
     </Compile>
     <Compile Include="Modelos\Tipos\Tipo.cs" />
     <Compile Include="Modelos\Tipos\TipoData.cs" />
     <Compile Include="Modelos\Tipos\TipoDecimal.cs" />
+    <Compile Include="Modelos\Enum\EnumTipo.cs" />
     <Compile Include="Modelos\Tipos\TipoInteiro.cs" />
     <Compile Include="Modelos\Tipos\TipoString.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Singleton\FixadorDeTamanho.cs" />
     <Compile Include="Singleton\GeradorDeNumeroAleatorio.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="PainelPrincipal.resx">
+      <DependentUpon>PainelPrincipal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -90,7 +91,7 @@
     <Content Include=".gitignore" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Exceptions\" />
+    <Folder Include="Forms\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
