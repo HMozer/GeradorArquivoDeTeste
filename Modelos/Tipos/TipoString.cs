@@ -7,12 +7,12 @@ using GeradorArquivoDeTeste.Singleton;
 
 namespace GeradorArquivoDeTeste.Modelos.Tipos
 {
-    class Tipostring : Tipo
+    class TipoString : Tipo
     {
         private string Caracteres = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         private int TamanhoString;
         
-        public Tipostring(string nome, int tamanho) : base(nome)
+        public TipoString(string nome, int tamanho) : base(nome)
         {
             VerificarTamanhoDaString(tamanho);
             TamanhoString = tamanho;

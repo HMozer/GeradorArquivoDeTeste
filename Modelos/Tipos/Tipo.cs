@@ -10,6 +10,7 @@ namespace GeradorArquivoDeTeste.Modelos.Tipos
     public abstract class Tipo
     {
         public string Nome { get; }
+        public string Descricao { get; set; }
 
         public Tipo(string nome)
         {
